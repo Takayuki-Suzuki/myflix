@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-Category.create(name: "Comedies")
+category = Category.create(name: "Comedies")
 Video.create(
     title: "Futurama",
     description: "Pizza boy Philip J. Fry awakens in the 31st century after 1,000 years of cryogenic preservation in this animated series. After he gets a job at an interplanetary delivery service, Fry embarks on ridiculous escapades to make sense of his predicament.",
@@ -13,5 +13,5 @@ Video.create(
     large_image_url: "/tmp/futurama.jpg",
     video_url: "",
     rating: 4.5,
-    category_id: 0
+    category_id: category.id
 )
