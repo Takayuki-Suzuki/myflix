@@ -88,7 +88,7 @@ Video.create(
     rating: 4,
     category_id: dorama.id
 )
-Video.create(
+monk = Video.create(
     title: "Monk",
     description: "Pizza boy Philip J. Fry awakens in the 31st century after 1,000 years of cryogenic preservation in this animated series. After he gets a job at an interplanetary delivery service, Fry embarks on ridiculous escapades to make sense of his predicament.",
     cover_image_url: "/tmp/monk.jpg",
@@ -97,3 +97,6 @@ Video.create(
     rating: 4,
     category_id: dorama.id
 )
+takayuki = User.create(full_name: "Takayuki Suzuki", email: "test@testdesu.com", password: "password")
+Review.create(user: takayuki, rating: 5, video: monk, content: "This is great movie!")
+Review.create(user: takayuki, rating: 2, video: monk, content: "This is horrible movie!")
