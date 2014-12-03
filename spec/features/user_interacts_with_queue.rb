@@ -23,8 +23,8 @@ feature "User interacts with queue" do
     #require 'pry'; binding.pry
     click_button "Update Instant Queue"
     #require 'pry'; binding.pry
-    expect(find("input[data-video-id='#{south_park.id}']").value).to eq("1")
-    expect(find("input[data-video-id='#{futurama.id}']").value).to eq("2")
+    expect(find("input[data-video-id='#{south_park.id}']").value).to eq("2")
+    expect(find("input[data-video-id='#{futurama.id}']").value).to eq("1")
     expect(find("input[data-video-id='#{monk.id}']").value).to eq("3")
   end
 
