@@ -60,9 +60,8 @@ describe QueueItemsController do
       post :create, video_id: monk.id
       expect(alice.queue_items.count).to eq(1)
     end
-    it "redirects to sign in page for unauthenticated users" do
-      post :create, video_id: 3
-      expect(response).to redirect_to sign_in_path
+    it_behaves_like "requires sign in" do
+      let(:action) { post :create, video_id: 3 }
     end
   end
 
@@ -88,10 +87,6 @@ describe QueueItemsController do
       delete :destroy, id: queue_item.id
       expect(QueueItem.count).to eq(1)
     end
-    it "redirects to sign in page for unauthenticated users" do
-      post :destroy, id: 3
-      expect(response).to redirect_to sign_in_path
-    end
 
     it "normalizes the remaining queue items" do
       alice = Fabricate(:user)
@@ -100,6 +95,10 @@ describe QueueItemsController do
       queue_item2 = Fabricate(:queue_item, position: 2, user: alice)
       post :destroy, id: queue_item1.id
       expect(queue_item2.reload.position).to eq(1)
+    end
+
+    it_behaves_like "requires sign in" do
+      let(:action) { post :destroy, id: 3 }
     end
   end
 
@@ -112,7 +111,6 @@ describe QueueItemsController do
 
       before { set_current_user(alice) }
 
-      end
       it "redirects to the my queue page" do
         post :update_queue, queue_items: [{id: queue_item1.id, position: 2}, {id: queue_item2.id, position: 1}]
         expect(response).to redirect_to my_queue_path
@@ -148,9 +146,8 @@ describe QueueItemsController do
       end
     end
     context "with unauthenticated users" do
-      it "redirects to sign up path" do
-        post :update_queue, queue_items: [{id: 1, position: 2}, {id: 2, position: 1}]
-        expect(response).to redirect_to sign_in_path
+      it_behaves_like "requires sign in" do
+        let(:action) { post :update_queue, queue_items: [{id: 1, position: 2}, {id: 2, position: 1}] }
       end
     end
     context "with queue items that do not belongs to the current user" do
