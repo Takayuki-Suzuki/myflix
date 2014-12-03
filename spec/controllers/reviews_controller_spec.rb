@@ -48,9 +48,8 @@ describe ReviewsController do
       end
     end
     context "with unauthenticated users" do
-      it "redirects to the sign in path" do
-        post :create, review: { rating: 4 }, video_id: video.id
-        expect(response).to redirect_to sign_in_path
+      it_behaves_like "requires sign in" do
+        let(:action) { post :create, review: { rating: 4 }, video_id: video.id }
       end
     end
   end
